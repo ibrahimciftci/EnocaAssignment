@@ -16,4 +16,8 @@ public interface CustomerService {
     boolean deleteCustomer(int id);
 
     CustomerDto updateCustomer(int id, CustomerDto customerDto);
+
+    List<Customer> searchCustomer(String text);
+
+    List<Customer> getCustomerWithoutOrder();
 }

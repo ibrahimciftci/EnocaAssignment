@@ -47,4 +47,15 @@ public class CustomerController {
     public ResponseEntity<CustomerDto> updateCustomer(@PathVariable int id, @RequestBody CustomerDto customerDto){
         return ResponseEntity.ok(customerService.updateCustomer(id,customerDto));
     }
+
+    @GetMapping("/search/{text}")
+    public ResponseEntity<List<Customer>> findCustomerWithSearch(@PathVariable String text){
+        return ResponseEntity.ok(customerService.searchCustomer(text));
+    }
+
+
+    @GetMapping("/getCustomerWithoutOrder")
+    public List<Customer> getCustomerWithoutOrder(){
+        return customerService.getCustomerWithoutOrder();
+    }
 }

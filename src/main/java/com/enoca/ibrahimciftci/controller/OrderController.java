@@ -3,7 +3,6 @@ package com.enoca.ibrahimciftci.controller;
 
 import com.enoca.ibrahimciftci.dto.OrderDto;
 import com.enoca.ibrahimciftci.model.Order;
-import com.enoca.ibrahimciftci.service.DateService;
 import com.enoca.ibrahimciftci.service.OrderService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -16,15 +15,13 @@ import java.util.List;
 @RequestMapping("/'orders'")
 public class OrderController {
     private final OrderService orderService;
-    private final DateService dateService;
 
-    public OrderController(OrderService orderService, DateService dateService) {
+    public OrderController(OrderService orderService) {
         this.orderService = orderService;
-        this.dateService = dateService;
     }
 
     @GetMapping
-    public ResponseEntity<List<OrderDto>> getAllOrder(){
+    public ResponseEntity<List<Order>> getAllOrder(){
         return ResponseEntity.ok(orderService.getOrders());
     }
 
@@ -55,6 +52,6 @@ public class OrderController {
 
     @GetMapping("/date/{date}")
     public ResponseEntity<List<Order>> getAfterDateOrder(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date){
-        return ResponseEntity.ok(dateService.afterOrders(date));
+        return ResponseEntity.ok(orderService.afterOrders(date));
     }
 }

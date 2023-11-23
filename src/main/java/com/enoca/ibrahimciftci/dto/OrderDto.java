@@ -13,11 +13,10 @@ public class OrderDto {
     private Customer customer;
 
 
-    public OrderDto(int id, Date createDate, double totalPrice, Customer customer) {
+    public OrderDto(int id, Date createDate, double totalPrice) {
         this.id = id;
         this.createDate = createDate;
         this.totalPrice = totalPrice;
-        this.customer = customer;
     }
 
     public OrderDto() {
@@ -66,6 +65,6 @@ public class OrderDto {
     }
 
     public static OrderDto fromModel(Order order){
-        return new OrderDto(order.getId(),order.getCreateDate(),order.getTotalPrice(),order.getCustomer());
+        return new OrderDto(order.getId(),order.getCreateDate(),order.getTotalPrice());
     }
 }

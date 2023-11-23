@@ -5,6 +5,8 @@ import com.enoca.ibrahimciftci.model.Order;
 import com.enoca.ibrahimciftci.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,8 +19,8 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public List<OrderDto> getOrders() {
-        return orderRepository.findAll().stream().map(OrderDto::fromModel).collect(Collectors.toList());
+    public List<Order> getOrders() {
+        return orderRepository.findAll();
     }
 
     @Override
@@ -49,5 +51,17 @@ public class OrderServiceImpl implements OrderService{
 
         order = orderRepository.save(order);
         return OrderDto.fromModel(order);
+    }
+
+    @Override
+    public List<Order> afterOrders(Date date) {
+        List<Order> orderList = orderRepository.findAll();
+        List<Order> afterOrderList = new ArrayList<>();
+        for (Order order : orderList){
+            if(order.getCreateDate().after(date)){
+                afterOrderList.add(order);
+            }
+        }
+        return afterOrderList;
     }
 }

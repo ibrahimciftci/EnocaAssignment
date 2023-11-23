@@ -19,7 +19,7 @@ public class IbrahimciftciApplication {
 
 
 	@Bean
-	public CommandLineRunner commandLineRunner(CustomerRepository repository){
+	public CommandLineRunner commandLineRunner(CustomerRepository repository) {
 		return runner -> {
 			//addCustomerWithOrder(repository);
 
@@ -27,12 +27,16 @@ public class IbrahimciftciApplication {
 	}
 
 	private void addCustomerWithOrder(CustomerRepository repository) {
-		Customer customer1 = new Customer("customer1", "customer1", 15);
-		Customer customer2 = new Customer("customer2", "customer2", 20);
-		Customer customer3 = new Customer("customer3", "customer3", 24);
-		Customer customer4 = new Customer("customer4", "customer4", 29);
-		Customer customer5 = new Customer("customer5", "customer5", 23);
+		//	Customer customer1 = new Customer("customer1", "customer1", 15);
+		//	Customer customer2 = new Customer("customer2", "customer2", 20);
+		//	Customer customer3 = new Customer("customer3", "customer3", 24);
+		//	Customer customer4 = new Customer("customer4", "customer4", 29);
+		//	Customer customer5 = new Customer("customer5", "customer5", 23);
 
+		Customer customer6 = new Customer("customer6", "customer6", 45);
+		repository.save(customer6);
+
+/*
 
 		Order order1 = new Order(new Date(), 123);
 		Order order2 = new Order(new Date(), 456);
@@ -78,5 +82,8 @@ public class IbrahimciftciApplication {
 		repository.save(customer5);
 	}
 
+
+ */
+	}
 }
 

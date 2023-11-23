@@ -2,6 +2,7 @@ package com.enoca.ibrahimciftci.service;
 
 import com.enoca.ibrahimciftci.dto.CustomerDto;
 import com.enoca.ibrahimciftci.model.Customer;
+import com.enoca.ibrahimciftci.model.Order;
 import com.enoca.ibrahimciftci.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +14,11 @@ public class CustomerServiceImpl implements CustomerService{
 
     private final CustomerRepository customerRepository;
 
-    public CustomerServiceImpl(CustomerRepository customerRepository) {
+    private final OrderService orderService;
+
+    public CustomerServiceImpl(CustomerRepository customerRepository, OrderService orderService) {
         this.customerRepository = customerRepository;
+        this.orderService = orderService;
     }
 
     @Override
@@ -42,6 +46,7 @@ public class CustomerServiceImpl implements CustomerService{
         return true;
     }
 
+
     @Override
     public CustomerDto updateCustomer(int id, CustomerDto customerDto) {
         Customer customer = findById(id);
@@ -52,5 +57,18 @@ public class CustomerServiceImpl implements CustomerService{
 
         customer = customerRepository.save(customer);
         return CustomerDto.fromModel(customer);
+    }
+
+    @Override
+    public List<Customer> searchCustomer(String text) {
+        return customerRepository.findByFirstNameContaining(text);
+    }
+
+    @Override
+    public List<Customer> getCustomerWithoutOrder() {
+        List<Customer> customerList = customerRepository.findAll();
+        List<Customer> customersWithOrders = orderService.getOrders().stream().map(Order::getCustomer).collect(Collectors.toList());
+
+        return customerList.stream().filter(customer -> !customersWithOrders.contains(customer)).collect(Collectors.toList());
     }
 }

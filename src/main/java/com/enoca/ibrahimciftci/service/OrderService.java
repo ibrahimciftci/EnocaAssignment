@@ -4,10 +4,11 @@ import com.enoca.ibrahimciftci.dto.OrderDto;
 import com.enoca.ibrahimciftci.model.Order;
 
 
+import java.util.Date;
 import java.util.List;
 
 public interface OrderService {
-    List<OrderDto> getOrders();
+    List<Order> getOrders();
 
     Order findById(int id);
 
@@ -16,4 +17,6 @@ public interface OrderService {
     boolean deleteOrder(int id);
 
     OrderDto updateOrder(int id, OrderDto orderDto);
+
+    List<Order> afterOrders(Date date);
 }

@@ -1,6 +1,8 @@
 package com.enoca.ibrahimciftci.model;
 
+import com.enoca.ibrahimciftci.dto.CustomerDto;
 import com.enoca.ibrahimciftci.dto.OrderDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.aspectj.weaver.ast.Or;
 
@@ -20,9 +22,23 @@ public class Order {
     @Column(name = "total_price", nullable = false)
     private double totalPrice;
 
-    public Order(Date createDate, double totalPrice) {
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "customer_id",insertable=false, updatable=false)
+    private Customer customer;
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Order(Date createDate, double totalPrice, Customer customer) {
         this.createDate = createDate;
         this.totalPrice = totalPrice;
+        this.customer = customer;
     }
 
     public Order() {
@@ -58,14 +74,18 @@ public class Order {
                 "id=" + id +
                 ", createDate=" + createDate +
                 ", totalPrice=" + totalPrice +
+                ", customer=" + customer +
                 '}';
     }
+
+
 
     public static Order fromDto(OrderDto orderDto){
         Order order = new Order();
         order.setId(orderDto.getId());
         order.setCreateDate(orderDto.getCreateDate());
         order.setTotalPrice(orderDto.getTotalPrice());
+        order.setCustomer(orderDto.getCustomer());
         return order;
     }
 }

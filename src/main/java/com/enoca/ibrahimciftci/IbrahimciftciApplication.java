@@ -28,7 +28,7 @@ public class IbrahimciftciApplication {
 
 	private void addCustomer(CustomerRepository repository) {
 		Customer customer = new Customer("Ahmet", "Kaya", 25);
-		Order order = new Order(new Date(), 200);
+		Order order = new Order(new Date(), 200, customer);
 
 		customer.addOrder(order);
 		repository.save(customer);

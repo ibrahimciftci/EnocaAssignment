@@ -2,10 +2,7 @@ package com.enoca.ibrahimciftci.model;
 
 import com.enoca.ibrahimciftci.dto.CustomerDto;
 import jakarta.persistence.*;
-
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -24,8 +21,7 @@ public class Customer {
     @Column(name = "age", nullable = false)
     private int age;
 
-    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinColumn(name = "customer_id", nullable = false)
+    @OneToMany(mappedBy = "customer",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Set<Order> orders;
 
     public Customer() {
@@ -84,7 +80,6 @@ public class Customer {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", age=" + age +
-                ", orders=" + orders +
                 '}';
     }
 
@@ -93,6 +88,7 @@ public class Customer {
             orders = new HashSet<>();
         }
         orders.add(order);
+        order.setCustomer(this);
     }
 
     public static Customer fromDto(CustomerDto customerDto){

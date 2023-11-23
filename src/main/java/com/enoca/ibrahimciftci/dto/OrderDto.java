@@ -12,6 +12,7 @@ public class OrderDto {
 
     private Customer customer;
 
+
     public OrderDto(int id, Date createDate, double totalPrice, Customer customer) {
         this.id = id;
         this.createDate = createDate;

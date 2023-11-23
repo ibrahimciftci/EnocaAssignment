@@ -21,7 +21,7 @@ public class IbrahimciftciApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(CustomerRepository repository){
 		return runner -> {
-			addCustomerWithOrder(repository);
+			//addCustomerWithOrder(repository);
 
 		};
 	}

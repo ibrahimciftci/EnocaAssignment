@@ -21,6 +21,7 @@ public class Order {
     private double totalPrice;
 
 
+    @JsonIgnore
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "customer_id")
     private Customer customer;

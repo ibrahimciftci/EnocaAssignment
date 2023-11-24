@@ -1,5 +1,6 @@
 package com.enoca.ibrahimciftci.controller;
 
+import com.enoca.ibrahimciftci.dto.CustomerDto;
 import com.enoca.ibrahimciftci.dto.OrderDto;
 import com.enoca.ibrahimciftci.model.Customer;
 import com.enoca.ibrahimciftci.model.Order;
@@ -17,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/'orders'")
+@RequestMapping("/orders")
 public class OrderController {
     private final OrderService orderService;
     private final CustomerService customerService;
@@ -50,17 +51,44 @@ public class OrderController {
 
 
     @PostMapping("/save")
-    public String saveOrder(@RequestParam("id") int id,@ModelAttribute("order") Order order){
+    public String saveOrder(@RequestParam("customerId") int customerId,@ModelAttribute("order") OrderDto orderDto){
 
-            Customer customer = customerService.findById(id);
-            System.err.println(customer);
+            Customer customer = customerService.findById(customerId);
+            Order order = Order.fromDto(orderDto);
             customer.addOrder(order);
             orderService.saveOrder(OrderDto.fromModel(order));
+        return "redirect:/orders/list?customerId=" +customerId;
+    }
 
-        return "redirect:/'orders'/list";
+    @GetMapping("/deleteOrder")
+    public String deleteById(@RequestParam("orderId") int orderId){
+        orderService.deleteOrder(orderId);
+        return "redirect:/orders/list?orderId=" +orderId;
+    }
+
+    @GetMapping("/showFormForUpdate")
+    public String updateOrder(@RequestParam("orderId") int orderId, Model model){
+        Order order = orderService.findById(orderId);
+        OrderDto orderDto = OrderDto.fromModel(order);
+        model.addAttribute("order", orderDto);
+        return "order-form";
     }
 
 
+    //http://localhost:8080/orders/date/2020-11-23
+    @GetMapping("/date/{date}")
+    public ResponseEntity<List<Order>> getAfterDateOrder(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date){
+        return ResponseEntity.ok(orderService.afterOrders(date));
+    }
+
+
+
+
+
+
+
+
+    /*
     @GetMapping("/{id}")
     public ResponseEntity<Order> getOrderById(@PathVariable int id){
         Order order = orderService.findById(id);
@@ -70,19 +98,18 @@ public class OrderController {
         return ResponseEntity.ok(order);
     }
 
-    /*@GetMapping("/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity deleteById(@PathVariable int id){
         orderService.deleteOrder(id);
         return ResponseEntity.noContent().build();
-    }*/
+    }
 
     @PutMapping("/{id}")
     public ResponseEntity<OrderDto> updateOrder(@PathVariable int id, @RequestBody OrderDto orderDto){
         return ResponseEntity.ok(orderService.updateOrder(id,orderDto));
     }
 
-    @GetMapping("/date/{date}")
-    public ResponseEntity<List<Order>> getAfterDateOrder(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date){
-        return ResponseEntity.ok(orderService.afterOrders(date));
-    }
+
+    */
+
 }

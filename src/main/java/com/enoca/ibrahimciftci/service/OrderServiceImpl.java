@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class OrderServiceImpl implements OrderService{
@@ -34,6 +33,7 @@ public class OrderServiceImpl implements OrderService{
         return OrderDto.fromModel(order);
     }
 
+
     @Override
     public boolean deleteOrder(int id) {
         Order tempOrder = findById(id);
@@ -41,16 +41,6 @@ public class OrderServiceImpl implements OrderService{
             throw new RuntimeException("Order is not found!");
         }orderRepository.deleteById(id);
         return true;
-    }
-
-    @Override
-    public OrderDto updateOrder(int id, OrderDto orderDto) {
-        Order order = findById(id);
-        order.setCreateDate(orderDto.getCreateDate());
-        order.setTotalPrice(orderDto.getTotalPrice());
-
-        order = orderRepository.save(order);
-        return OrderDto.fromModel(order);
     }
 
     @Override
@@ -64,4 +54,18 @@ public class OrderServiceImpl implements OrderService{
         }
         return afterOrderList;
     }
+/*
+    @Override
+    public OrderDto updateOrder(int id, OrderDto orderDto) {
+        Order order = findById(id);
+        order.setCreateDate(orderDto.getCreateDate());
+        order.setTotalPrice(orderDto.getTotalPrice());
+
+        order = orderRepository.save(order);
+        return OrderDto.fromModel(order);
+    }
+
+
+
+     */
 }

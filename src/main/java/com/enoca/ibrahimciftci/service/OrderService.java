@@ -16,7 +16,11 @@ public interface OrderService {
 
     boolean deleteOrder(int id);
 
+    List<Order> afterOrders(Date date);
+/*
     OrderDto updateOrder(int id, OrderDto orderDto);
 
-    List<Order> afterOrders(Date date);
+
+
+ */
 }

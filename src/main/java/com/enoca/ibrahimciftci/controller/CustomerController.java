@@ -64,14 +64,25 @@ public class CustomerController {
         return "customer-form";
     }
 
-    @GetMapping("/search/{text}")
-    public ResponseEntity<List<Customer>> findCustomerWithSearch(@PathVariable String text){
-        return ResponseEntity.ok(customerService.searchCustomer(text));
-    }
-
-
     @GetMapping("/getCustomerWithoutOrder")
-    public List<Customer> getCustomerWithoutOrder(){
-        return customerService.getCustomerWithoutOrder();
+    public String getCustomerWithoutOrder(Model model){
+        List<Customer> customerList = customerService.getCustomerWithoutOrder();
+        model.addAttribute("customers", customerList);
+        return "list-customers";
     }
+
+    @GetMapping("/search")
+    public String findCustomerWithSearch(@RequestParam(name = "search", required = false) String search, Model model){
+        List<Customer> customers;
+        if (search != null && !search.isEmpty()) {
+            customers = customerService.searchCustomer(search);
+        } else {
+            customers = customerService.getCustomers();
+        }
+
+        model.addAttribute("customers", customers);
+        return "list-customers";
+    }
+
+
 }

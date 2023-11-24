@@ -15,7 +15,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+
     @Column(name = "create_date", nullable = false)
     private Date createDate;
 
@@ -83,6 +83,8 @@ public class Order {
         order.setId(orderDto.getId());
         order.setCreateDate(orderDto.getCreateDate());
         order.setTotalPrice(orderDto.getTotalPrice());
+
+        order.setCustomer(orderDto.getCustomer());
         return order;
     }
 }

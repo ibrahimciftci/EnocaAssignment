@@ -7,6 +7,7 @@ import java.util.Date;
 
 public class OrderDto {
     private int id;
+
     private Date createDate;
     private double totalPrice;
 

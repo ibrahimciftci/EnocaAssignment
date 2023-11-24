@@ -4,11 +4,13 @@ import com.enoca.ibrahimciftci.dto.CustomerDto;
 import com.enoca.ibrahimciftci.model.Customer;
 import com.enoca.ibrahimciftci.service.CustomerService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/customers")
 public class CustomerController {
 
@@ -18,9 +20,25 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<CustomerDto>> getAllCustomer(){
-        return ResponseEntity.ok(customerService.getCustomers());
+    @GetMapping("/list")
+    public String getAllCustomer(Model model){
+        List<Customer> customerList = customerService.getCustomers();
+        model.addAttribute("customers", customerList);
+        return "list-customers";
+    }
+
+    @GetMapping("/showFormForAdd")
+    public String showFormForAdd(Model model){
+        CustomerDto customerDto = new CustomerDto();
+        model.addAttribute("customer", customerDto);
+        return  "customer-form";
+    }
+
+
+    @PostMapping("/save")
+    public String saveCustomer(@ModelAttribute("customer") CustomerDto customerDto){
+        customerService.saveCustomer(customerDto);
+        return "redirect:/customers/list";
     }
 
     @GetMapping("/{id}")
@@ -32,20 +50,18 @@ public class CustomerController {
         return ResponseEntity.ok(customer);
     }
 
-    @PostMapping
-    public ResponseEntity<CustomerDto> saveCustomer(@RequestBody CustomerDto customerDto){
-        return ResponseEntity.ok(customerService.saveCustomer(customerDto));
+    @GetMapping("/deleteCustomer")
+    public String deleteById(@RequestParam("customerId") int customerId){
+        customerService.deleteCustomer(customerId);
+        return "redirect:/customers/list";
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity deleteById(@PathVariable int id){
-        customerService.deleteCustomer(id);
-        return ResponseEntity.noContent().build();
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<CustomerDto> updateCustomer(@PathVariable int id, @RequestBody CustomerDto customerDto){
-        return ResponseEntity.ok(customerService.updateCustomer(id,customerDto));
+    @GetMapping("/showFormForUpdate")
+    public String updateCustomer(@RequestParam("customerId") int customerId, Model model){
+        Customer customer = customerService.findById(customerId);
+        CustomerDto customerDto = CustomerDto.fromModel(customer);
+        model.addAttribute("customer", customerDto);
+        return "customer-form";
     }
 
     @GetMapping("/search/{text}")

@@ -33,8 +33,8 @@ public class IbrahimciftciApplication {
 		//	Customer customer4 = new Customer("customer4", "customer4", 29);
 		//	Customer customer5 = new Customer("customer5", "customer5", 23);
 
-		Customer customer6 = new Customer("customer6", "customer6", 45);
-		repository.save(customer6);
+		//Customer customer6 = new Customer("customer6", "customer6", 45);
+		//repository.save(customer6);
 
 /*
 

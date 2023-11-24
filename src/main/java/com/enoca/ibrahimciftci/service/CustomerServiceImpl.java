@@ -22,8 +22,8 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
-    public List<CustomerDto> getCustomers() {
-        return customerRepository.findAll().stream().map(CustomerDto::fromModel).collect(Collectors.toList());
+    public List<Customer> getCustomers() {
+        return customerRepository.findAll();
     }
 
     @Override

@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface CustomerService {
 
-    List<CustomerDto> getCustomers();
+    List<Customer> getCustomers();
 
     Customer findById(int id);
 

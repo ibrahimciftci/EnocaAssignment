@@ -11,6 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -51,10 +52,15 @@ public class OrderController {
 
 
     @PostMapping("/save")
-    public String saveOrder(@RequestParam("id") int id,@ModelAttribute("order") OrderDto orderDto){
+    public String saveOrder(@RequestParam("id") int id, @ModelAttribute("order") OrderDto orderDto, BindingResult bindingResult){
 
             Customer customer = customerService.findById(id);
             System.err.println(customer);
+
+            if (bindingResult.hasErrors()) {
+            // Validasyon hatası varsa, form sayfasına geri dön
+            return "redirect:/orders/list?customerId=" +id;
+            }
 
             /*Order order = Order.fromDto(orderDto);
             customer.addOrder(order);

@@ -17,6 +17,7 @@
   <form action="@{/orders/save}" th:action="@{/orders/save}" th:object="${order}" method="POST">
     <input type="hidden" th:field="*{id}" class="form-control mb-4 w-25">
     <input type="date" th:field="*{createDate}" placeholder="Create Date" class="form-control mb-4 w-25">
+    <div th:if="${#fields.hasErrors('createDate')}" th:errors="*{createDate}"></div>
     <input type="number" th:field="*{totalPrice}" placeholder="Total Price" class="form-control mb-4 w-25">
     <input type="number" th:field="${customer.id}" placeholder="Customer ID" class="form-control mb-4 w-25" readonly="readonly">
     <button type="submit" class="btn btn-info col-2">Save</button>

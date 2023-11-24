@@ -5,6 +5,7 @@ import com.enoca.ibrahimciftci.model.Order;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class OrderDto {
@@ -12,19 +13,22 @@ public class OrderDto {
 
     @NotBlank(message = "createDate is required")
     @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private Date createDate;
+    private String createDate;
     private double totalPrice;
 
     private Customer customer;
+    private int customerId;
 
 
-    public OrderDto(int id, Date createDate, double totalPrice) {
+    public OrderDto(int id, String createDate, double totalPrice,Customer customer) {
         this.id = id;
         this.createDate = createDate;
         this.totalPrice = totalPrice;
+        this.customer=customer;
     }
 
     public OrderDto() {
+
     }
 
     public int getId() {
@@ -35,11 +39,11 @@ public class OrderDto {
         this.id = id;
     }
 
-    public Date getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 
@@ -70,6 +74,8 @@ public class OrderDto {
     }
 
     public static OrderDto fromModel(Order order){
-        return new OrderDto(order.getId(),order.getCreateDate(),order.getTotalPrice());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String createDate=dateFormat.format(order.getCreateDate());
+        return new OrderDto(order.getId(),createDate,order.getTotalPrice(),order.getCustomer());
     }
 }

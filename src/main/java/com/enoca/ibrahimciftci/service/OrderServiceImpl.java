@@ -29,7 +29,8 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public OrderDto saveOrder(OrderDto orderDto) {
-        Order order = orderRepository.save(Order.fromDto(orderDto));
+        Order order1=Order.fromDto(orderDto);
+        Order order = orderRepository.save(order1);
         return OrderDto.fromModel(order);
     }
 

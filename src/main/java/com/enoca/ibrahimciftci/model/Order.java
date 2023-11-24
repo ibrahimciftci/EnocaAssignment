@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -80,8 +82,16 @@ public class Order {
 
     public static Order fromDto(OrderDto orderDto){
         Order order = new Order();
+        Date createDate=new Date();
+
+        try {
+            createDate = new SimpleDateFormat("yyyy-MM-dd").parse(orderDto.getCreateDate());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        order.setCustomer(orderDto.getCustomer());
         order.setId(orderDto.getId());
-        order.setCreateDate(orderDto.getCreateDate());
+        order.setCreateDate(createDate);
         order.setTotalPrice(orderDto.getTotalPrice());
 
         order.setCustomer(orderDto.getCustomer());

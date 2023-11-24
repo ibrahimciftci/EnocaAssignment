@@ -1,6 +1,5 @@
 package com.enoca.ibrahimciftci.controller;
 
-import com.enoca.ibrahimciftci.dto.CustomerDto;
 import com.enoca.ibrahimciftci.dto.OrderDto;
 import com.enoca.ibrahimciftci.model.Customer;
 import com.enoca.ibrahimciftci.model.Order;
@@ -45,35 +44,27 @@ public class OrderController {
     public String showFormForAdd(Model model, @RequestParam("id") int id){
         OrderDto orderDto = new OrderDto();
         Customer customer = customerService.findById(id);
+        orderDto.setCustomer(customer);
         model.addAttribute("order", orderDto);
-        model.addAttribute("customer", customer);
+        model.addAttribute("customerId", id);
         return  "order-form";
     }
 
 
     @PostMapping("/save")
-    public String saveOrder(@RequestParam("id") int id, @ModelAttribute("order") OrderDto orderDto, BindingResult bindingResult){
-
-            Customer customer = customerService.findById(id);
-            System.err.println(customer);
-
-            if (bindingResult.hasErrors()) {
-            // Validasyon hatası varsa, form sayfasına geri dön
-            return "redirect:/orders/list?customerId=" +id;
-            }
-
-            /*Order order = Order.fromDto(orderDto);
-            customer.addOrder(order);
+    public String saveOrder( @ModelAttribute("order") OrderDto orderDto, BindingResult bindingResult)
+    {
+            Order order = Order.fromDto(orderDto);
             orderService.saveOrder(OrderDto.fromModel(order));
-            */
 
-            return "redirect:/orders/list?customerId=" +id;
+
+            return "redirect:/orders/list?customerId=" +order.getCustomer().getId();
     }
 
     @GetMapping("/deleteOrder")
-    public String deleteById(@RequestParam("orderId") int orderId){
+    public String deleteById(@RequestParam("orderId") int orderId, @RequestParam("customerId") int customerId){
         orderService.deleteOrder(orderId);
-        return "redirect:/orders/list?orderId=" +orderId;
+        return "redirect:/orders/list?customerId=" +customerId;
     }
 
     @GetMapping("/showFormForUpdate")

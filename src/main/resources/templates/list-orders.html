@@ -28,7 +28,7 @@
       <td th:text="${order.TotalPrice}"></td>
       <td>
           <a th:href="@{/orders/showFormForUpdate(orderId=${order.id})}" class="btn btn-info btn-sm">Update</a>
-         <a th:href="@{/orders/deleteOrder(orderId=${order.id})}" class="btn btn-danger btn-sm" onclick="if (!(confirm('Are you sure you want to delete this Order?'))) return false">Delete</a>
+         <a th:href="@{/orders/deleteOrder(orderId=${order.id}, customerId=${customer.id})}" class="btn btn-danger btn-sm" onclick="if (!(confirm('Are you sure you want to delete this Order?'))) return false">Delete</a>
 
        </td>
 

@@ -41,9 +41,9 @@ public class OrderController {
     }
 
     @GetMapping("/showFormForAdd")
-    public String showFormForAdd(Model model, @RequestParam("customerId") int customerId){
+    public String showFormForAdd(Model model, @RequestParam("id") int id){
         OrderDto orderDto = new OrderDto();
-        Customer customer = customerService.findById(customerId);
+        Customer customer = customerService.findById(id);
         model.addAttribute("order", orderDto);
         model.addAttribute("customer", customer);
         return  "order-form";
@@ -51,13 +51,17 @@ public class OrderController {
 
 
     @PostMapping("/save")
-    public String saveOrder(@RequestParam("customerId") int customerId,@ModelAttribute("order") OrderDto orderDto){
+    public String saveOrder(@RequestParam("id") int id,@ModelAttribute("order") OrderDto orderDto){
 
-            Customer customer = customerService.findById(customerId);
-            Order order = Order.fromDto(orderDto);
+            Customer customer = customerService.findById(id);
+            System.err.println(customer);
+
+            /*Order order = Order.fromDto(orderDto);
             customer.addOrder(order);
             orderService.saveOrder(OrderDto.fromModel(order));
-        return "redirect:/orders/list?customerId=" +customerId;
+            */
+
+            return "redirect:/orders/list?customerId=" +id;
     }
 
     @GetMapping("/deleteOrder")

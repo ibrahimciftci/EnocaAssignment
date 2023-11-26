@@ -4,6 +4,7 @@ import com.enoca.ibrahimciftci.dto.OrderDto;
 import com.enoca.ibrahimciftci.model.Order;
 
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -17,10 +18,7 @@ public interface OrderService {
     boolean deleteOrder(int id);
 
     List<Order> afterOrders(Date date);
-/*
-    OrderDto updateOrder(int id, OrderDto orderDto);
 
+    OrderDto updateOrder(int id, OrderDto orderDto) throws ParseException;
 
-
- */
 }

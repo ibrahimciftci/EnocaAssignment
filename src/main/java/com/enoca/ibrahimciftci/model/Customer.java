@@ -1,7 +1,11 @@
 package com.enoca.ibrahimciftci.model;
 
 import com.enoca.ibrahimciftci.dto.CustomerDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,12 +19,14 @@ public class Customer {
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
+
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
     @Column(name = "age", nullable = false)
     private int age;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "customer",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Set<Order> orders;
 

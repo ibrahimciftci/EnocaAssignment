@@ -5,6 +5,8 @@ import com.enoca.ibrahimciftci.model.Order;
 import com.enoca.ibrahimciftci.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -55,18 +57,25 @@ public class OrderServiceImpl implements OrderService{
         }
         return afterOrderList;
     }
-/*
-    @Override
-    public OrderDto updateOrder(int id, OrderDto orderDto) {
-        Order order = findById(id);
-        order.setCreateDate(orderDto.getCreateDate());
-        order.setTotalPrice(orderDto.getTotalPrice());
 
-        order = orderRepository.save(order);
-        return OrderDto.fromModel(order);
+    @Override
+    public OrderDto updateOrder(int id, OrderDto orderDto){
+            Order order = findById(id);
+            order.setCreateDate(parseStringToDate(orderDto.getCreateDate()));
+            order.setTotalPrice(orderDto.getTotalPrice());
+            order = orderRepository.save(order);
+            return OrderDto.fromModel(order);
+        }
+
+
+        private Date parseStringToDate(String dateString) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                return dateFormat.parse(dateString);
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
     }
 
-
-
-     */
-}

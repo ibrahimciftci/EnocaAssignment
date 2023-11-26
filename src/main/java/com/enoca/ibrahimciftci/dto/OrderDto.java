@@ -6,7 +6,6 @@ import jakarta.validation.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class OrderDto {
     private int id;
@@ -17,7 +16,6 @@ public class OrderDto {
     private double totalPrice;
 
     private Customer customer;
-    private int customerId;
 
 
     public OrderDto(int id, String createDate, double totalPrice,Customer customer) {

@@ -3,7 +3,8 @@ package com.enoca.ibrahimciftci.model;
 import com.enoca.ibrahimciftci.dto.OrderDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import org.springframework.format.annotation.DateTimeFormat;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,7 +17,6 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
 
     @Column(name = "create_date", nullable = false)
     private Date createDate;

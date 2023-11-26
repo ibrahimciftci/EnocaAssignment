@@ -41,15 +41,6 @@ public class CustomerController {
         return "redirect:/customers/list";
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Customer> getCustomerById(@PathVariable int id){
-        Customer customer = customerService.findById(id);
-        if (customer == null){
-            throw new RuntimeException("Customer is not found!");
-        }
-        return ResponseEntity.ok(customer);
-    }
-
     @GetMapping("/deleteCustomer")
     public String deleteById(@RequestParam("customerId") int customerId){
         customerService.deleteCustomer(customerId);

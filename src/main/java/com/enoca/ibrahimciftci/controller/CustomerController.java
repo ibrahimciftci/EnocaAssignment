@@ -3,7 +3,6 @@ package com.enoca.ibrahimciftci.controller;
 import com.enoca.ibrahimciftci.dto.CustomerDto;
 import com.enoca.ibrahimciftci.model.Customer;
 import com.enoca.ibrahimciftci.service.CustomerService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +32,6 @@ public class CustomerController {
         model.addAttribute("customer", customerDto);
         return  "customer-form";
     }
-
 
     @PostMapping("/save")
     public String saveCustomer(@ModelAttribute("customer") CustomerDto customerDto){
@@ -74,6 +72,4 @@ public class CustomerController {
         model.addAttribute("customers", customers);
         return "list-customers";
     }
-
-
 }

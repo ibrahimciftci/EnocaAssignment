@@ -3,9 +3,6 @@ package com.enoca.ibrahimciftci.model;
 import com.enoca.ibrahimciftci.dto.OrderDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;

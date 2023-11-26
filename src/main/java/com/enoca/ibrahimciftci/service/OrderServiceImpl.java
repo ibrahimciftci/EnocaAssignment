@@ -4,8 +4,6 @@ import com.enoca.ibrahimciftci.dto.OrderDto;
 import com.enoca.ibrahimciftci.model.Order;
 import com.enoca.ibrahimciftci.repository.OrderRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -68,8 +66,7 @@ public class OrderServiceImpl implements OrderService{
             return OrderDto.fromModel(order);
         }
 
-
-        private Date parseStringToDate(String dateString) {
+    private Date parseStringToDate(String dateString) {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             try {
                 return dateFormat.parse(dateString);
@@ -78,5 +75,5 @@ public class OrderServiceImpl implements OrderService{
                 return null;
             }
         }
-    }
+}
 

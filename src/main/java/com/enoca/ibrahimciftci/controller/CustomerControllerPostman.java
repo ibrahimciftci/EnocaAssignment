@@ -15,7 +15,6 @@ public class CustomerControllerPostman {
 
     private final CustomerService customerService;
 
-
     public CustomerControllerPostman(CustomerService customerService) {
         this.customerService = customerService;
     }

@@ -81,5 +81,4 @@ public class OrderController {
     public ResponseEntity<List<Order>> getAfterDateOrder(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date){
         return ResponseEntity.ok(orderService.afterOrders(date));
     }
-
 }

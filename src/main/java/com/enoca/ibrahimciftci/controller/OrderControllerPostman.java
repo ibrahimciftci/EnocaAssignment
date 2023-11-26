@@ -6,7 +6,7 @@ import com.enoca.ibrahimciftci.model.Customer;
 import com.enoca.ibrahimciftci.model.Order;
 import com.enoca.ibrahimciftci.service.CustomerService;
 import com.enoca.ibrahimciftci.service.OrderService;
-import org.springframework.http.HttpStatus;
+import jakarta.persistence.EntityManager;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,7 +40,21 @@ public class OrderControllerPostman {
         return ResponseEntity.ok(order);
     }
 
-    @PostMapping
+ /*   @PostMapping
+    public ResponseEntity<OrderDto> createOrder(@RequestBody OrderDto orderDto) {
+
+        CustomerDto customerDto = CustomerDto.fromModel(customerService.findById(id));
+        Customer customer = Customer.fromDto(customerDto);
+        orderDto.setCustomer(customer);
+        orderService.saveOrder(orderDto);
+
+        return ResponseEntity.ok(orderDto);
+
+    }
+*/
+
+
+   /* @PostMapping
     public ResponseEntity<String> saveOrder(@PathVariable int id, @RequestBody OrderDto orderDto){
 
         try {
@@ -57,7 +71,7 @@ public class OrderControllerPostman {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error");
         }
-    }
+    }*/
 
     @DeleteMapping("/{id}")
     public ResponseEntity deleteById(@PathVariable int id){

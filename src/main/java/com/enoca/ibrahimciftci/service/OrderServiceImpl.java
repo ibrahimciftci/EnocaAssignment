@@ -4,6 +4,7 @@ import com.enoca.ibrahimciftci.dto.OrderDto;
 import com.enoca.ibrahimciftci.model.Order;
 import com.enoca.ibrahimciftci.repository.OrderRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
